@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Item = ({id, title, image, description, price, addToCart}) => (
-  <article key={id} className='menu__item'>
+const Item = ({id, title, image, description, price, addToCart}) => {
+  const [showOptions, setshowOptions] = useState(false)
+  return (
+  <article key={id} className='menu__item' onMouseEnter={()=>setshowOptions(true)} onMouseLeave={()=>setshowOptions(false)}>
     <img src={image} alt={title} className='menu__photo' />
     <div className='menu__info'>
       <header>
@@ -9,9 +11,13 @@ const Item = ({id, title, image, description, price, addToCart}) => (
         <h4 className='menu__price'>{price}$</h4>
       </header>
       <button onClick={()=> addToCart({id, title, image, description, price})}>Add to cart</button>
+      {showOptions && <div>
+
+      </div>}
     </div>
   </article>
 )
+}
 
 const Menu = ({ items, addToCart }) => {
   return (
