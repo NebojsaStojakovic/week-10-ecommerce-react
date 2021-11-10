@@ -1,25 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 const Item = ({id, title, image, description, price, addToCart, setModalItem}) => {
   const [showOptions, setshowOptions] = useState(false)
+
+  const formattedTitle = title.length > 40 ? title.substring(0, 37) + "..." : title
+
   return (
-  <article className='menu__item' onMouseOver={()=>setshowOptions(true)} onMouseLeave={()=>setshowOptions(false)}>
+  <article className='menu__item' onMouseEnter={()=>setshowOptions(true)} onMouseLeave={()=>setshowOptions(false)}>
     <img src={image} alt={title} className='menu__photo' />
     <div className='menu__info'>
       <header>
-        <h4 className='menu__title'>{title}</h4>
+        <h4 className='menu__title'>{formattedTitle}</h4>
         <h4 className='menu__price'>{price}$</h4>
       </header>
-      {showOptions && <div>
+      {showOptions && 
+      <div>
         <button onClick={()=> setModalItem({id, title, image, description, price, addToCart})}>See Item</button>
         <button onClick={()=> addToCart({id, title, image, description, price})}>Add to cart</button>
-      </div>}
+      </div>
+      }
     </div>
   </article>
 )}
 
 const Menu = ({ items, setItems, setModalItem }) => {
-  const addToCart = (item) => {
+  const addToCart = useCallback((item) => {
     setItems(prevItems => {
       const itemsShallowCopy = [...prevItems]
       const foundItem = itemsShallowCopy.find(currItem => currItem.id === item.id)
@@ -31,7 +36,7 @@ const Menu = ({ items, setItems, setModalItem }) => {
         return itemsShallowCopy
       }
     })
-  }
+  }, [])
 
   return (
     <div className='section__center'>

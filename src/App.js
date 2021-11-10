@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Menu from './components/Menu';
 import Categories from './components/Categories';
 import items from './data';
@@ -14,7 +14,6 @@ function App() {
   const [menuItems, setMenuItems] = useState(items);
   const [categories, setCategories] = useState(allCategories);
   const [cartItems, setCartItems] = useState([]);
-  // const [showModal, setShowModal] = useState(false)
   const [modalItem, setModalItem] = useState(null)
 
   useEffect(() => {
@@ -35,14 +34,14 @@ function App() {
     setMenuItems(newItems);
   };
 
-  const searchFilter = (value) => {
+  const searchFilter = useCallback((value) => {
     if (value === '') {
       setMenuItems(items);
       return ;
     }
     const newItems = items.filter((item) => item.title.trim().toLowerCase().includes(value));
     setMenuItems(newItems);
-  }
+  }, [])
 
   const MainPage = () => (
     <>

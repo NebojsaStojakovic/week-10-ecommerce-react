@@ -7,7 +7,7 @@ const CartItem = ({ id, title, image, description, price, quantity, changeQuanti
   <div className="cart__row">
     <div className="cart__title">
       <img src={image} alt={title} />
-      <h1>{id, title}</h1>
+      <h1>{title}</h1>
     </div>
 
     <div className="price">
@@ -24,7 +24,7 @@ const CartItem = ({ id, title, image, description, price, quantity, changeQuanti
 
     <div className="price-total">
       <h4>
-        {price * quantity}
+        {(price * quantity).toFixed(2)}
       </h4>
     </div>
 
