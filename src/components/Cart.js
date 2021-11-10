@@ -39,7 +39,7 @@ const CartItem = ({ id, title, image, description, price, quantity, changeQuanti
 
 export default function Cart({ items, setItems }) {
 
-  const [total, setTotal] = useState(items.reduce(((a, b) => a + b.price), 0).toFixed(2))
+  const [total, setTotal] = useState(items.reduce(((a, b) => a + b.price * b.quantity), 0).toFixed(2))
 
   const changeQuantity = (id, increment) => {
     setItems(prevItems => {
@@ -52,7 +52,7 @@ export default function Cart({ items, setItems }) {
       } else {
         itemsShallowCopy.splice(foundIndex, 1, foundItemCopy)
       }
-      setTotal(itemsShallowCopy.reduce(((a, b) => a + b.price), 0).toFixed(2))
+      setTotal(itemsShallowCopy.reduce(((a, b) => a + b.price * b.quantity), 0).toFixed(2))
       return itemsShallowCopy
     })
   }
@@ -64,6 +64,8 @@ export default function Cart({ items, setItems }) {
   }
 
   const clearCart = () => setItems([])
+
+  console.log(total)
 
   return (
     <div className="cart__content">
