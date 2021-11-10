@@ -1,20 +1,18 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import Menu from './components/Menu';
-import Categories from './components/Categories';
+import React, { useState, useEffect } from "react";
+import { Link, Routes, Route } from "react-router-dom";
+import { RiUserLine, RiShoppingCartLine, RiArrowUpSFill } from "react-icons/ri";
+import Modal from "./components/Modal";
+import Cart from "./components/Cart"
 import items from './data';
-import Modal from './components/Modal'
-import Input from './components/Input';
-import { RiShoppingCartLine, RiUserLine, RiArrowUpSFill } from "react-icons/ri";
-import Cart from "./components/Cart";
-import { Routes, Route, Link } from "react-router-dom";
+import MainPage from "./components/MainPage";
 
 const allCategories = ['all', ...new Set(items.map((item) => item.category))];
 
 function App() {
-  const [menuItems, setMenuItems] = useState(items);
-  const [categories, setCategories] = useState(allCategories);
-  const [cartItems, setCartItems] = useState([]);
-  const [modalItem, setModalItem] = useState(null);
+  const [modalItem, setModalItem] = useState(null)
+  const [cartItems, setCartItems] = useState([])
+  const [menuItems, setMenuItems] = useState(items)
+  const [categories, setCategories] = useState(allCategories)
   const [searchValue, setSearchValue] = useState("")
 
   useEffect(() => {
@@ -26,6 +24,21 @@ function App() {
     localStorage.setItem("cart", JSON.stringify(cartItems))
   }, [cartItems])
 
+  useEffect(() => {
+    modalItem && (document.body.style.overflow = 'hidden');
+    !modalItem && (document.body.style.overflow = 'unset');
+  }, [modalItem])
+
+  const searchFilter = (value) => {
+    setSearchValue(value)
+    if (value === '') {
+      setMenuItems(items);
+      return;
+    }
+    const newItems = menuItems.filter((item) => item.title.trim().toLowerCase().includes(value));
+    setMenuItems(newItems);
+  }
+
   const filterItems = (category) => {
     if (category === 'all') {
       setMenuItems(items);
@@ -35,43 +48,19 @@ function App() {
     setMenuItems(newItems);
   };
 
-  const searchFilter = useCallback((value) => {
-    setSearchValue(value)
-    if (value === '') {
-      setMenuItems(items);
-      return ;
-    }
-    const newItems = items.filter((item) => item.title.trim().toLowerCase().includes(value));
-    setMenuItems(newItems);
-  }, [])
-
-  const MainPage = () => (
-    <>
-      <div className="main__filters">
-        <Categories categories={categories} filterItems={filterItems} />
-        {/* <div className="input__box"> */}
-        <Input searchFilter={searchFilter} searchValue={searchValue} />
-        {/* </div> */}
-      </div>
-      <Menu items={menuItems} setItems={setCartItems} setModalItem={setModalItem} />
-    </>
-  )
-
   const numCartItems = cartItems.reduce(((a, b) => a + b.quantity), 0)
 
   return (
-    <main>
+    <div>
       {modalItem && <Modal {...modalItem} setModalItem={setModalItem} />}
       <header className="header">
         <Link to="/" className="header__logo">
-          {/* <a href="#"> */}
           .everything
-          {/* </a> */}
         </Link>
         <div className="header__icons">
           <button>
             <RiUserLine />
-          </button> 
+          </button>
           <button>
             <Link to="/cart">
               <RiShoppingCartLine />
@@ -85,7 +74,7 @@ function App() {
       <section className="menu section">
         <div className="main_section">
           <Routes>
-            <Route path="/" element={<MainPage key={1312} />} />
+            <Route path="/" element={<MainPage categories={categories} filterItems={filterItems} setCartItems={setCartItems} searchValue={searchValue} setModalItem={setModalItem} searchFilter={searchFilter} menuItems={menuItems} setMenuItems={setMenuItems} />} />
             <Route path="/cart" element={<Cart items={cartItems} setItems={setCartItems} />} />
           </Routes>
         </div>
@@ -95,7 +84,7 @@ function App() {
           <RiArrowUpSFill />
         </a>
       </div>
-    </main>
+    </div>
   );
 }
 

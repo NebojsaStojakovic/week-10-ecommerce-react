@@ -2,7 +2,7 @@ import React from 'react'
 import { BiPlus, BiMinus, BiX } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
-const CartItem = ({ id, title, image, description, price, quantity, changeQuantity, removeFromCart }) => (
+const CartItem = ({ id, title, image, price, quantity, changeQuantity, removeFromCart }) => (
 
   <div className="cart__row">
     <div className="cart__title">

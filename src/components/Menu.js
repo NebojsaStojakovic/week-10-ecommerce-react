@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
+import React from 'react'
 
-const Item = ({id, title, image, description, price, addToCart, setModalItem}) => {
+const Item = ({ id, title, image, description, price, addToCart, setModalItem }) => {
   const handleClick = e => {
     e.stopPropagation()
-    addToCart({id, title, image, description, price})
+    addToCart({ id, title, image, description, price })
   }
 
   const formattedTitle = title.length > 40 ? title.substring(0, 37) + "..." : title
@@ -25,26 +25,25 @@ const Item = ({id, title, image, description, price, addToCart, setModalItem}) =
   </article>
 )}
 
-const Menu = ({ items, setItems, setModalItem }) => {
-  const addToCart = useCallback((item) => {
-    setItems(prevItems => {
+export default function Menu({ menuItems, setCartItems, setModalItem }) {
+
+  const addToCart = (item) => {
+    setCartItems(prevItems => {
       const itemsShallowCopy = [...prevItems]
       const foundItem = itemsShallowCopy.find(currItem => currItem.id === item.id)
-      if(foundItem === undefined) {
-        return [...itemsShallowCopy, {...item, quantity: 1}]
+      if (foundItem === undefined) {
+        return [...itemsShallowCopy, { ...item, quantity: 1 }]
       } else {
-        const fiCopy = {...foundItem, quantity: foundItem.quantity + 1}
+        const fiCopy = { ...foundItem, quantity: foundItem.quantity + 1 }
         itemsShallowCopy.splice(itemsShallowCopy.indexOf(foundItem), 1, fiCopy)
         return itemsShallowCopy
       }
     })
-  }, [])
+  }
 
   return (
     <div className='section__center'>
-      {items.map((menuItem) => <Item {...menuItem} key={menuItem.id} addToCart={addToCart} setModalItem={setModalItem} /> )}
+      {menuItems.map((menuItem) => <Item {...menuItem} key={menuItem.id} addToCart={addToCart} setModalItem={setModalItem} />)}
     </div>
-  );
-};
-
-export default Menu;
+  )
+}

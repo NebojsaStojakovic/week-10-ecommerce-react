@@ -505,6 +505,10 @@ Menu
   color: var(--clr-white);
   background-color: var(--clr-black);
 }
+.no-scroll {
+  position: absolute;
+  overflow: hidden;
+}
 @media screen and (min-width: 768px) {
   .section__center {
     width: auto;
