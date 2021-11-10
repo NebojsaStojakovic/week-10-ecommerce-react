@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
     const oldCartItems = JSON.parse(localStorage.getItem("cart"))
-    setCartItems(oldCartItems)
+    setCartItems(oldCartItems || [])
   }, [])
 
   useEffect(() => {

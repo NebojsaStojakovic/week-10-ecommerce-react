@@ -15,7 +15,7 @@ export default function Modal({ setModalItem, id, title, image, description, pri
     const isDeleting = (e.key === "Backspace" || e.key === "Delete")
     const isArrow = (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "ArrowRight" || e.key === "ArrowLeft")
     if(isNumeric && !isDeleting && !isArrow) e.preventDefault()
-    if(isDeleting && !isArrow) if(quantity / 10 < 1) e.preventDefault()
+    if(isDeleting && !isArrow) if(quantity / 10 < 1) setQuantity(1)
   }
 
   const handleClick = e => addToCart({ id, title, image, description, price, quantity: parseInt(quantity) })
