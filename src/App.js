@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Menu from './Menu';
-import Categories from './Categories';
+import Menu from './components/Menu';
+import Categories from './components/Categories';
 import items from './data';
-import Input from './Input';
+import Input from './components/Input';
 import { RiShoppingCartLine, RiUserLine, RiArrowUpSFill } from "react-icons/ri";
 import Cart from "./components/Cart";
-
+import { Routes, Route, Link } from "react-router-dom";
 
 const allCategories = ['all', ...new Set(items.map((item) => item.category))];
 
@@ -72,19 +72,37 @@ function App() {
     setMenuItems(newItems);
   }
 
+  const MainPage = () => (
+    <>
+      <div className="main__filters">
+        <Categories categories={categories} filterItems={filterItems} />
+        {/* <div className="input__box"> */}
+        <Input searchFilter={searchFilter}/>
+        {/* </div> */}
+      </div>
+      <Menu items={menuItems} addToCart={addToCart} />
+    </>
+  )
+
   return (
     <main>
       <header className="header">
-        <a href="#">.everything</a>
+        <Link to="/">
+          {/* <a href="#"> */}
+          .everything
+          {/* </a> */}
+        </Link>
         <div className="header__icons">
           <button>
             <RiUserLine />
           </button> 
           <button>
-            <RiShoppingCartLine />
-            <span className="cart-item">
-              {cartItems.lenght}
-            </span>
+            <Link to="/cart">
+              <RiShoppingCartLine />
+              <span className="cart-item">
+                {cartItems.lenght}
+              </span>
+            </Link>
           </button>
         </div>
       </header>
@@ -94,14 +112,10 @@ function App() {
           <div className="underline"></div>
         </div> */}
         <div className="main_section">
-          <div className="main__filters">
-            <Cart items={cartItems} changeQuantity={changeQuantity} clearCart={clearCart} />
-            <Categories categories={categories} filterItems={filterItems} />
-            {/* <div className="input__box"> */}
-            <Input searchFilter={searchFilter}/>
-            {/* </div> */}
-        </div>
-        <Menu items={menuItems} addToCart={addToCart} />
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/cart" element={<Cart items={cartItems} changeQuantity={changeQuantity} clearCart={clearCart} />} />
+          </Routes>
         </div>
       </section>
       <div className="to-top">
