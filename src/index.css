@@ -415,6 +415,10 @@ Menu
   border-radius: 10px;
   flex-direction: column;
 }
+.modal__image-container,
+.modal__info {
+  flex: 1;
+}
 .modal__info {
   display: flex;
   flex-direction: column;
@@ -509,5 +513,28 @@ Menu
   }
   .cart__title img {
     width: 100px;
+  }
+  .cart__title h1 {
+    font-size: 16px;
+  }
+  .price h4,
+  .price-total h4 {
+    font-size: 16px;
+  }
+  .quantity button,
+  .quantity h4 {
+    font-size: 15px;
+  }
+  .clear-item button {
+    font-size: 18px;
+  }
+  .cart__titles h3 {
+    font-size: 16px;
+  }
+  .header__icons button {
+    font-size: 20px;
+  }
+  .header__logo {
+    font-size: 32px;
   }
 }

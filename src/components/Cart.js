@@ -15,11 +15,11 @@ const CartItem = ({ id, title, image, description, price, quantity, changeQuanti
     </div>
 
     <div className="quantity">
-      <button onClick={() => changeQuantity(id, false)}> <BiMinus /> </button>
-      <h4>{quantity}</h4>
-      <button onClick={() => changeQuantity(id, true)}>
+        <button onClick={() => changeQuantity(id, true)}>
         <BiPlus />
       </button>
+      <h4>{quantity}</h4>
+      <button onClick={() => changeQuantity(id, false)}> <BiMinus /> </button>
     </div>
 
     <div className="price-total">

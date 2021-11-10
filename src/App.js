@@ -83,10 +83,6 @@ function App() {
         </div>
       </header>
       <section className="menu section">
-        {/* <div className="title">
-          <h2>our products</h2>
-          <div className="underline"></div>
-        </div> */}
         <div className="main_section">
           <Routes>
             <Route path="/" element={<MainPage key={1312} />} />
