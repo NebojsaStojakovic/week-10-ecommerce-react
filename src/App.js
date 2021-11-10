@@ -3,8 +3,9 @@ import Menu from './Menu';
 import Categories from './Categories';
 import items from './data';
 import Input from './Input';
-import { RiShoppingCartLine, RiUserLine } from "react-icons/ri";
+import { RiShoppingCartLine, RiUserLine, RiArrowUpSFill } from "react-icons/ri";
 import Cart from "./components/Cart";
+
 
 const allCategories = ['all', ...new Set(items.map((item) => item.category))];
 
@@ -94,12 +95,20 @@ function App() {
         </div> */}
         <div className="main_section">
           <div className="main__filters">
-          <Cart items={cartItems} changeQuantity={changeQuantity} clearCart={clearCart} />
-          <Categories categories={categories} filterItems={filterItems} />
-          </div>
-          <Menu items={menuItems} addToCart={addToCart} />
+            <Cart items={cartItems} changeQuantity={changeQuantity} clearCart={clearCart} />
+            <Categories categories={categories} filterItems={filterItems} />
+            {/* <div className="input__box"> */}
+            <Input searchFilter={searchFilter}/>
+            {/* </div> */}
+        </div>
+        <Menu items={menuItems} addToCart={addToCart} />
         </div>
       </section>
+      <div className="to-top">
+        <a href="#">
+          <RiArrowUpSFill />
+        </a>
+      </div>
     </main>
   );
 }
