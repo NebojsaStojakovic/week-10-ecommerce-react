@@ -87,7 +87,7 @@ function App() {
   return (
     <main>
       <header className="header">
-        <Link to="/">
+        <Link to="/" className="header__logo">
           {/* <a href="#"> */}
           .everything
           {/* </a> */}
