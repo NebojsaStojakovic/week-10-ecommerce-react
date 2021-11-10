@@ -14,7 +14,8 @@ function App() {
   const [menuItems, setMenuItems] = useState(items);
   const [categories, setCategories] = useState(allCategories);
   const [cartItems, setCartItems] = useState([]);
-  const [modalItem, setModalItem] = useState(null)
+  const [modalItem, setModalItem] = useState(null);
+  const [searchValue, setSearchValue] = useState("")
 
   useEffect(() => {
     const oldCartItems = JSON.parse(localStorage.getItem("cart"))
@@ -35,6 +36,7 @@ function App() {
   };
 
   const searchFilter = useCallback((value) => {
+    setSearchValue(value)
     if (value === '') {
       setMenuItems(items);
       return ;
@@ -48,7 +50,7 @@ function App() {
       <div className="main__filters">
         <Categories categories={categories} filterItems={filterItems} />
         {/* <div className="input__box"> */}
-        <Input searchFilter={searchFilter}/>
+        <Input searchFilter={searchFilter} searchValue={searchValue} />
         {/* </div> */}
       </div>
       <Menu items={menuItems} setItems={setCartItems} setModalItem={setModalItem} />

@@ -1,24 +1,24 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 const Item = ({id, title, image, description, price, addToCart, setModalItem}) => {
-  const [showOptions, setshowOptions] = useState(false)
+  const handleClick = e => {
+    e.stopPropagation()
+    addToCart({id, title, image, description, price})
+  }
 
   const formattedTitle = title.length > 40 ? title.substring(0, 37) + "..." : title
 
   return (
-  <article className='menu__item' onMouseEnter={()=>setshowOptions(true)} onMouseLeave={()=>setshowOptions(false)}>
+  <article onClick={()=> setModalItem({id, title, image, description, price, addToCart})} className='menu__item'>
     <img src={image} alt={title} className='menu__photo' />
     <div className='menu__info'>
       <header>
         <h4 className='menu__title'>{formattedTitle}</h4>
         <h4 className='menu__price'>{price}$</h4>
       </header>
-      {showOptions && 
       <div>
-        <button onClick={()=> setModalItem({id, title, image, description, price, addToCart})}>See Item</button>
-        <button onClick={()=> addToCart({id, title, image, description, price})}>Add to cart</button>
+        <button onClick={handleClick}>Add to cart</button>
       </div>
-      }
     </div>
   </article>
 )}

@@ -151,6 +151,7 @@ Menu
   box-shadow: var(--light-shadow);
   padding: 16px;
   border-radius: var(--radius);
+  cursor: pointer;
 }
 .menu__photo {
   object-fit: cover;
@@ -414,13 +415,10 @@ Menu
   border-radius: 10px;
   flex-direction: column;
 }
-.modal__image-container, 
-.modal__info {
-  flex: 1;
-}
 .modal__info {
   display: flex;
   flex-direction: column;
+  flex-basis: 50%;
   gap: 30px;
   padding: 0 20px;
 }
@@ -428,10 +426,15 @@ Menu
   font-size: 20px;
   padding-top: 40px;
 }
+.modal__image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 50%;
+}
 .modal__image {
-  max-width: 400px;
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+  max-height: 75vh;
 }
 .modal__close {
   position: absolute;
