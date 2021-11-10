@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BiPlus, BiMinus, BiX } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
@@ -39,8 +39,6 @@ const CartItem = ({ id, title, image, description, price, quantity, changeQuanti
 
 export default function Cart({ items, setItems }) {
 
-  const [total, setTotal] = useState(items.reduce(((a, b) => a + b.price * b.quantity), 0).toFixed(2))
-
   const changeQuantity = (id, increment) => {
     setItems(prevItems => {
       const itemsShallowCopy = [...prevItems]
@@ -52,7 +50,6 @@ export default function Cart({ items, setItems }) {
       } else {
         itemsShallowCopy.splice(foundIndex, 1, foundItemCopy)
       }
-      setTotal(itemsShallowCopy.reduce(((a, b) => a + b.price * b.quantity), 0).toFixed(2))
       return itemsShallowCopy
     })
   }
@@ -65,7 +62,7 @@ export default function Cart({ items, setItems }) {
 
   const clearCart = () => setItems([])
 
-  console.log(total)
+  const total = items.reduce(((a, b) => a + b.price * b.quantity), 0).toFixed(2)
 
   return (
     <div className="cart__content">
