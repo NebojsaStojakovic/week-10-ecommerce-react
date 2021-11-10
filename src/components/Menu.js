@@ -17,7 +17,7 @@ const Item = ({id, title, image, description, price, addToCart, setModalItem}) =
         <h4 className='menu__price'>{price}$</h4>
       </header>
       <div>
-        <button onClick={handleClick}>Add to cart</button>
+        <button className="menu__add-btn" onClick={handleClick}>Add to cart</button>
       </div>
     </div>
   </article>
