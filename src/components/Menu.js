@@ -10,7 +10,9 @@ const Item = ({id, title, image, description, price, addToCart, setModalItem}) =
 
   return (
   <article onClick={()=> setModalItem({id, title, image, description, price, addToCart})} className='menu__item'>
+    <div className="menu__img-cont">
     <img src={image} alt={title} className='menu__photo' />
+    </div>
     <div className='menu__info'>
       <header>
         <h4 className='menu__title'>{formattedTitle}</h4>
