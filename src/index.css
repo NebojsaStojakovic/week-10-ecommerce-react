@@ -312,7 +312,8 @@ Menu
   flex-direction: column;
   gap: 8px;
 }
-.cart__total-btns button {
+.btn {
+  cursor: pointer;
   outline: none;
   padding: 6px 12px;
   border: 2px solid var(--clr-black);
@@ -327,7 +328,7 @@ Menu
   border-radius: 5px;
   margin: 0 auto;
 }
-.cart__total-btns button:hover {
+.btn:hover {
   color: var(--clr-white);
   background-color: var(--clr-black);
 }
@@ -384,6 +385,70 @@ Menu
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 1px;
+}
+.modal-wrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal {
+  overflow: auto;
+  flex-basis: 80%;
+  max-height: 100%;
+}
+.modal__content {
+  position: relative;
+  display: flex;
+  background-color: #fefefe;
+  padding: 40px;
+  border: 1px solid #888;
+  border-radius: 10px;
+}
+.modal__image-container, 
+.modal__info {
+  flex: 1;
+}
+.modal__info {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 0 50px;
+}
+.modal__title {
+  font-size: 20px;
+  padding-top: 40px;
+}
+.modal__image {
+  width: 400px;
+  height: auto;
+}
+.modal__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+.modal__btn {
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  background-color: white;
+  padding: 5px 7px;
+}
+.modal__close-icon {
+  font-size: 25px;
+}
+.modal__price {
+  color: #444;
+  font-size: 17px;
+  font-weight: bold;
 }
 @media screen and (min-width: 768px) {
   .section__center {

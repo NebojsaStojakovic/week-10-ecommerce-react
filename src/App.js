@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Menu from './components/Menu';
 import Categories from './components/Categories';
 import items from './data';
+import Modal from './components/Modal'
 import Input from './components/Input';
 import { RiShoppingCartLine, RiUserLine, RiArrowUpSFill } from "react-icons/ri";
 import Cart from "./components/Cart";
@@ -13,6 +14,8 @@ function App() {
   const [menuItems, setMenuItems] = useState(items);
   const [categories, setCategories] = useState(allCategories);
   const [cartItems, setCartItems] = useState([]);
+  // const [showModal, setShowModal] = useState(false)
+  const [modalItem, setModalItem] = useState(null)
 
   useEffect(() => {
     const oldCartItems = JSON.parse(localStorage.getItem("cart"))
@@ -22,37 +25,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems))
   }, [cartItems])
-
-  const addToCart = (item) => {
-    setCartItems(prevItems => {
-      const itemsShallowCopy = [...prevItems]
-      const foundItem = itemsShallowCopy.find(currItem => currItem.id === item.id)
-      if(foundItem === undefined) {
-        return [...itemsShallowCopy, {...item, quantity: 1}]
-      } else {
-        const fiCopy = {...foundItem, quantity: foundItem.quantity + 1}
-        itemsShallowCopy.splice(itemsShallowCopy.indexOf(foundItem), 1, fiCopy)
-        return itemsShallowCopy
-      }
-    })
-  }
-
-  const changeQuantity = (id, increment) => {
-    setCartItems(prevItems => {
-      const itemsShallowCopy = [...prevItems]
-      const foundItemCopy = {...itemsShallowCopy.find(currItem => currItem.id === id)}
-      const foundIndex = itemsShallowCopy.indexOf(foundItemCopy)
-      increment ? foundItemCopy.quantity++ : foundItemCopy.quantity--
-      if(foundItemCopy.quantity === 0) {
-        itemsShallowCopy.splice(foundIndex, 1)
-      } else {
-        itemsShallowCopy.splice(foundIndex, 1, foundItemCopy)
-      }
-      return itemsShallowCopy
-    })
-  }
-
-  const clearCart = () => setCartItems([])
 
   const filterItems = (category) => {
     if (category === 'all') {
@@ -80,12 +52,15 @@ function App() {
         <Input searchFilter={searchFilter}/>
         {/* </div> */}
       </div>
-      <Menu items={menuItems} addToCart={addToCart} />
+      <Menu items={menuItems} setItems={setCartItems} setModalItem={setModalItem} />
     </>
   )
 
+  const numCartItems = cartItems.reduce(((a, b) => a + b.quantity), 0)
+
   return (
     <main>
+      {modalItem && <Modal {...modalItem} setModalItem={setModalItem} />}
       <header className="header">
         <Link to="/" className="header__logo">
           {/* <a href="#"> */}
@@ -100,7 +75,7 @@ function App() {
             <Link to="/cart">
               <RiShoppingCartLine />
               <span className="cart-item">
-                {cartItems.lenght}
+                {numCartItems}
               </span>
             </Link>
           </button>
@@ -113,8 +88,8 @@ function App() {
         </div> */}
         <div className="main_section">
           <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/cart" element={<Cart items={cartItems} changeQuantity={changeQuantity} clearCart={clearCart} />} />
+            <Route path="/" element={<MainPage key={1312} />} />
+            <Route path="/cart" element={<Cart items={cartItems} setItems={setCartItems} />} />
           </Routes>
         </div>
       </section>
