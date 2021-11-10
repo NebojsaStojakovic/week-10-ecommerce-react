@@ -47,7 +47,7 @@ function App() {
     setMenuItems(newItems);
   };
 
-  const numCartItems = cartItems.reduce(((a, b) => a + b.quantity), 0)
+  const numCartItems = cartItems ? cartItems.reduce(((a, b) => a + b.quantity), 0) : 0
 
   return (
     <div>
