@@ -32,9 +32,9 @@ export default function Menu({ menuItems, setCartItems, setModalItem }) {
       const itemsShallowCopy = [...prevItems]
       const foundItem = itemsShallowCopy.find(currItem => currItem.id === item.id)
       if (foundItem === undefined) {
-        return [...itemsShallowCopy, { ...item, quantity: 1 }]
+        return [...itemsShallowCopy, { ...item, quantity: item.quantity || 1 }]
       } else {
-        const fiCopy = { ...foundItem, quantity: foundItem.quantity + 1 }
+        const fiCopy = { ...foundItem, quantity: foundItem.quantity + item.quantity }
         itemsShallowCopy.splice(itemsShallowCopy.indexOf(foundItem), 1, fiCopy)
         return itemsShallowCopy
       }

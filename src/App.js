@@ -25,8 +25,7 @@ function App() {
   }, [cartItems])
 
   useEffect(() => {
-    modalItem && (document.body.style.overflow = 'hidden');
-    !modalItem && (document.body.style.overflow = 'unset');
+    modalItem ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'unset';
   }, [modalItem])
 
   const searchFilter = (value) => {
@@ -74,7 +73,17 @@ function App() {
       <section className="menu section">
         <div className="main_section">
           <Routes>
-            <Route path="/" element={<MainPage categories={categories} filterItems={filterItems} setCartItems={setCartItems} searchValue={searchValue} setModalItem={setModalItem} searchFilter={searchFilter} menuItems={menuItems} setMenuItems={setMenuItems} />} />
+            <Route path="/" element={
+              <MainPage 
+                categories={categories} 
+                filterItems={filterItems} 
+                setCartItems={setCartItems} 
+                searchValue={searchValue} 
+                setModalItem={setModalItem} 
+                searchFilter={searchFilter} 
+                menuItems={menuItems} 
+                setMenuItems={setMenuItems} />
+              } />
             <Route path="/cart" element={<Cart items={cartItems} setItems={setCartItems} />} />
           </Routes>
         </div>
