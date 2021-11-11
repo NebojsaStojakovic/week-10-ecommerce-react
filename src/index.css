@@ -341,7 +341,7 @@ p {
   text-transform: uppercase;
   font-size: 14px;
   font-weight: bold;
-  border-radius: 5px;
+  border-radius: var(--radius);
   margin: 0 auto;
 }
 .btn:hover {
@@ -418,6 +418,8 @@ p {
   max-height: 100%;
 }
 .modal__content {
+  max-height: 90vh;
+  overflow-y: auto;
   position: relative;
   display: flex;
   background-color: #fefefe;
@@ -434,12 +436,12 @@ p {
   display: flex;
   flex-direction: column;
   flex-basis: 50%;
-  gap: 30px;
+  gap: 18px;
   padding: 0 20px;
 }
 .modal__title {
-  font-size: 20px;
-  padding-top: 40px;
+  font-size: 17px;
+  padding-top: 20px;
 }
 .modal__image-container {
   display: flex;
@@ -466,6 +468,10 @@ p {
   justify-content: center;
   gap: 10px;
 }
+.modal__btn,
+.modal__quantity {
+  font-size: 13px;
+}
 .modal__close-icon {
   font-size: 25px;
 }
@@ -484,9 +490,14 @@ p {
   max-width: unset;
   margin: 0;
   flex-basis: 20%;
-  padding: 3px 3px 3px 10px;
+  padding: 6px;
   border: 1px solid black;
   border-radius: var(--radius);
+}
+.modal__description {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--clr-black);
 }
 .menu__add-btn {
   border: none;
@@ -495,14 +506,19 @@ p {
   border: 2px solid var(--clr-black);
   color: var(--clr-black);
   background-color: transparent;
-  padding: 6px 12px;
-  font-size: 14px;
-  width: 100%;
-  margin-top: 12px;
+  padding: 3px 6px;
+  font-size: 17px;
   cursor: pointer;
   transition: var(--transition);
   text-transform: capitalize;
   font-weight: 700;
+}
+.menu__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  gap: 5px;
 }
 .menu__add-btn:hover {
   color: var(--clr-white);
@@ -529,6 +545,26 @@ p {
   width: 280px;
 }
 @media screen and (min-width: 768px) {
+  .modal__title {
+    font-size: 20px;
+    padding-top: 40px;
+  }
+  .modal__price {
+    font-size: 15px;
+  }
+  .modal__description {
+    font-size: 16px;
+  }
+  .modal__btn,
+  .modal__quantity {
+    font-size: 15px;
+  }
+  .modal__quantity {
+    padding: 3px 3px 3px 10px;
+  }
+  .modal__info {
+    gap: 30px;
+  }
   .section__center {
     width: auto;
     grid-template-columns: 1fr 1fr;

@@ -15,14 +15,15 @@ export default function Modal({ setModalItem, id, title, image, description, pri
     const isDeleting = (e.key === "Backspace" || e.key === "Delete")
     const isArrow = (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "ArrowRight" || e.key === "ArrowLeft")
     if (isNumeric && !isDeleting && !isArrow) e.preventDefault()
-    if (isDeleting && !isArrow)
-      if (quantity < 10) {
-        e.preventDefault()
-        setQuantity(1)
-      }
   }
 
-  const handleClick = e => addToCart({ id, title, image, description, price, quantity: parseInt(quantity) })
+  const handleClick = e => {
+    const quantityInt = parseInt(quantity, 10)
+    const isNum = !isNaN(quantityInt)
+    const isNotZero = quantityInt > 0
+    if(isNum && isNotZero) addToCart({ id, title, image, description, price, quantity: quantityInt })
+    if(!isNotZero) closeModal()
+  }
 
   return (
     <div className="modal-wrapper" onClick={closeModal}>
@@ -36,7 +37,7 @@ export default function Modal({ setModalItem, id, title, image, description, pri
             <div className="modal__price">${price}</div>
             <div className="modal__description">{description}</div>
             <div className="modal__input">
-              <input className="btn modal__quantity" value={quantity} type="number" min="1" size="1" onKeyDown={handleKeyDown} onChange={e => setQuantity(e.target.value)} />
+              <input className="btn modal__quantity" value={quantity} type="number" min="0" size="1" onKeyDown={handleKeyDown} onChange={e => setQuantity(e.target.value)} />
               <button className="btn modal__btn" onClick={handleClick}>Add to Cart <RiShoppingCartLine /></button>
             </div>
           </div>

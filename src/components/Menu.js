@@ -1,4 +1,5 @@
 import React from 'react'
+import { RiShoppingCartLine } from 'react-icons/ri'
 
 const Item = ({ id, title, image, description, price, addToCart, setModalItem }) => {
   const handleClick = e => {
@@ -16,10 +17,12 @@ const Item = ({ id, title, image, description, price, addToCart, setModalItem })
     <div className='menu__info'>
       <header>
         <h4 className='menu__title'>{formattedTitle}</h4>
-        <h4 className='menu__price'>{price}$</h4>
       </header>
-      <div>
-        <button className="menu__add-btn" onClick={handleClick}>Add to cart</button>
+      <div className="menu__footer">
+        <h4 className='menu__price'>{price}$</h4>
+        <button className="menu__add-btn" onClick={handleClick}>
+          <RiShoppingCartLine />
+        </button>
       </div>
     </div>
   </article>
@@ -32,9 +35,11 @@ export default function Menu({ menuItems, setCartItems, setModalItem }) {
       const itemsShallowCopy = [...prevItems]
       const foundItem = itemsShallowCopy.find(currItem => currItem.id === item.id)
       if (foundItem === undefined) {
-        return [...itemsShallowCopy, { ...item, quantity: item.quantity || 1 }]
+        const newQuantity = item.quantity || 1
+        return [...itemsShallowCopy, { ...item, quantity: newQuantity }]
       } else {
-        const fiCopy = { ...foundItem, quantity: foundItem.quantity + item.quantity }
+        const newQuantity = foundItem.quantity + (item.quantity || 1)
+        const fiCopy = { ...foundItem, quantity: newQuantity }
         itemsShallowCopy.splice(itemsShallowCopy.indexOf(foundItem), 1, fiCopy)
         return itemsShallowCopy
       }

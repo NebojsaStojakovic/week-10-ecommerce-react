@@ -29,12 +29,12 @@ function App() {
   }, [modalItem])
 
   const searchFilter = (value) => {
-    setSearchValue(value)
+    setSearchValue(value);
     if (value === '') {
       setMenuItems(items);
       return;
     }
-    const newItems = menuItems.filter((item) => item.title.trim().toLowerCase().includes(value));
+    const newItems = menuItems.filter((item) => item.title.trim().toLowerCase().includes(value.toLowerCase().trim()));
     setMenuItems(newItems);
   }
 
