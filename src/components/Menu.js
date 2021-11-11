@@ -1,7 +1,7 @@
 import React from 'react'
 import { RiShoppingCartLine } from 'react-icons/ri'
 
-const Item = ({ id, title, image, description, price, addToCart, setModalItem }) => {
+const Item = ({ id, title, image, category, description, price, addToCart, setModalItem }) => {
   const handleClick = e => {
     e.stopPropagation()
     addToCart({ id, title, image, description, price })
@@ -10,7 +10,7 @@ const Item = ({ id, title, image, description, price, addToCart, setModalItem })
   const formattedTitle = title.length > 40 ? title.substring(0, 37) + "..." : title
 
   return (
-  <article onClick={()=> setModalItem({id, title, image, description, price, addToCart})} className='menu__item'>
+  <article onClick={()=> setModalItem({id, category, title, image, description, price, addToCart})} className='menu__item'>
     <div className="menu__img-cont">
     <img src={image} alt={title} className='menu__photo' />
     </div>

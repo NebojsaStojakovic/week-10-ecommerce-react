@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { RiShoppingCartLine } from 'react-icons/ri'
 import { BiX } from "react-icons/bi";
 
-export default function Modal({ setModalItem, id, title, image, description, price, addToCart }) {
+export default function Modal({ setModalItem, id, title, image, description, price, category, addToCart }) {
   const [quantity, setQuantity] = useState(1)
 
   const closeModal = () => {
@@ -33,6 +33,7 @@ export default function Modal({ setModalItem, id, title, image, description, pri
             <img src={image} alt={title} className="modal__image" />
           </div>
           <div className="modal__info">
+            <h4 className="modal__category">{category}</h4>
             <h2 className="modal__title">{title}</h2>
             <div className="modal__price">${price}</div>
             <div className="modal__description">{description}</div>

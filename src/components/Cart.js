@@ -9,11 +9,9 @@ const CartItem = ({ id, title, image, price, quantity, changeQuantity, removeFro
       <img src={image} alt={title} />
       <h1>{title}</h1>
     </div>
-
     <div className="price">
       <h4>{price}</h4>
     </div>
-
     <div className="quantity">
         <button onClick={() => changeQuantity(id, true)}>
         <BiPlus />
@@ -21,19 +19,16 @@ const CartItem = ({ id, title, image, price, quantity, changeQuantity, removeFro
       <h4>{quantity}</h4>
       <button onClick={() => changeQuantity(id, false)}> <BiMinus /> </button>
     </div>
-
     <div className="price-total">
       <h4>
         {(price * quantity).toFixed(2)}
       </h4>
     </div>
-
     <div className="clear-item">
       <button onClick={() => removeFromCart(id)}>
         <BiX />
       </button>
     </div>
-
   </div>
 )
 
@@ -61,7 +56,6 @@ export default function Cart({ items, setItems }) {
   }
 
   const clearCart = () => setItems([])
-
   const total = items.reduce(((a, b) => a + b.price * b.quantity), 0).toFixed(2)
 
   return (
